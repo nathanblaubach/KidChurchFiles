@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="KidChurchFiles.Tests/KidChurchFiles.Tests.csproj" />
+  <Project Path="KidChurchFiles/KidChurchFiles.csproj" />
+</Solution>
