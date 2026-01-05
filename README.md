@@ -1,6 +1,6 @@
 # KidChurchFiles
 
-Organize files from The Gospel Project for intuitive use on a TV
+Organize files from The Gospel Project for intuitive use on a TV via Thumb Drive
 
 ## Quickstart
 
@@ -11,7 +11,6 @@ Organize files from The Gospel Project for intuitive use on a TV
   * Bible Story Videos
   * Missions Videos
   * Key Passage Songs
-* Unzip the folders and the sub folders of the Presentation Files
 * Run the commands below
 
 ```shell
@@ -34,6 +33,7 @@ Note: Currently these tests assume that you have the content in your Downloads f
 
 This is a very rudimentary slice that processes 6 files for each session. Down the road there will be additional features
 
-* Supporting base functionality for "Kids", not just pre-school
-* Supporting Missions videos
-* Supporting Volume resource organization
+* Organize "Kids" files in addition to "Preschool"
+* Automatically populate session titles
+* Only place Missions videos in the appropriate session
+* Organize Volume resources
