@@ -1,20 +1,37 @@
 using System.Globalization;
-using KidChurchFiles.Adapters;
-using KidChurchFiles.Interfaces;
+using System.IO.Compression;
 
 namespace KidChurchFiles;
 
-public class UseCases
+public class UseCases(string rootDirectory)
 {
-    private readonly IPreschoolVolumeImport _import = new LocalFilePreschoolVolumeImport(
-        $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/Downloads");
+    private readonly LifewayFileScanner lifewayFileScanner = new(
+        rootDirectory);
 
-    private readonly IPreschoolVolumeExport _export = new LocalFilePreschoolVolumeExport(
-        $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/Downloads/{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss", CultureInfo.InvariantCulture)}");
-    
-    public void CopyPreschoolFiles(int volumeNumber)
+    private readonly PreschoolVolumeExporter preschoolVolumeExporter = new(
+        $"{rootDirectory}/{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss", CultureInfo.InvariantCulture)}");
+
+    public void ExtractPreschoolZips(int volumeNumber)
     {
-        var volume = _import.ImportPreschoolVolume(volumeNumber);
-        _export.ExportPreschoolVolume(volume);
+        ExtractZips(lifewayFileScanner.GetTopLevelZips(volumeNumber));
+        ExtractZips(lifewayFileScanner.GetPresentationFileZips(volumeNumber));
+
+        static void ExtractZips(IEnumerable<string> zipFilePaths)
+        {
+            foreach (var zipFilePath in zipFilePaths)
+            {
+                var extractDirectoryPath = zipFilePath.Replace(".zip", string.Empty);
+                if (!Directory.Exists(extractDirectoryPath))
+                {
+                    ZipFile.ExtractToDirectory(zipFilePath, extractDirectoryPath);
+                }
+            }
+        }
+    }
+
+    public void CopyPreschoolVolume(int volumeNumber)
+    {
+        var preschoolVolume = lifewayFileScanner.GetPreschoolVolume(volumeNumber);
+        preschoolVolumeExporter.ExportPreschoolVolume(preschoolVolume);
     }
 }
