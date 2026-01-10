@@ -9,7 +9,6 @@ public record PreschoolSession(
     string BigPictureAnswerSourcePath,
     string BigPictureQuestionSourcePath,
     string KeyPassageSourcePath,
-    string? MissionsVideoSourcePath,
     string SongSourcePath
 )
 {

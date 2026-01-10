@@ -29,5 +29,5 @@ public class PreschoolVolumeTests
     }
 
     private PreschoolSession CreateSessionWithUnitNumber(int unitNumber)
-        => new PreschoolSession(unitNumber, 1, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+        => new PreschoolSession(unitNumber, 1, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
 }

@@ -34,6 +34,6 @@ Note: Currently these tests assume that you have the content in your Downloads f
 This is a very rudimentary slice that processes 6 files for each session. Down the road there will be additional features
 
 * Organize "Kids" files in addition to "Preschool"
-* Automatically populate session titles
-* Only place Missions videos in the appropriate session
-* Organize Volume resources
+* Automate session title population
+* Automate missions video placement
+* Automate volume resources placement

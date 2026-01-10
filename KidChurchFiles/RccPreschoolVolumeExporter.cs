@@ -1,6 +1,6 @@
 namespace KidChurchFiles;
 
-public class PreschoolVolumeExporter(string rootDirectory)
+public class RccPreschoolVolumeExporter(string rootDirectory)
 {
     public void ExportPreschoolVolume(PreschoolVolume volume)
     {
@@ -19,10 +19,6 @@ public class PreschoolVolumeExporter(string rootDirectory)
             File.Copy(session.BigPictureAnswerSourcePath, $"{sessionDirectory}/Big Picture Answer.jpg");
             File.Copy(session.BigPictureQuestionSourcePath, $"{sessionDirectory}/Big Picture Question.jpg");
             File.Copy(session.KeyPassageSourcePath, $"{sessionDirectory}/Key Passage.jpg");
-            if (session.MissionsVideoSourcePath is not null)
-            {
-                File.Copy(session.MissionsVideoSourcePath, $"{sessionDirectory}/Missions Video.mp4");
-            }
             File.Copy(session.SongSourcePath, $"{sessionDirectory}/Song.mp4");
         }
     }

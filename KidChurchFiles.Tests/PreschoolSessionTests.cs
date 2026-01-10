@@ -19,7 +19,6 @@ public class PreschoolSessionTests
             string.Empty,
             string.Empty,
             string.Empty,
-            string.Empty,
             string.Empty
         );
 
