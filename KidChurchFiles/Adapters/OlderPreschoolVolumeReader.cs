@@ -1,33 +1,28 @@
-namespace KidChurchFiles;
+namespace KidChurchFiles.Adapters;
 
-public class LifewayPreschoolVolumeReader(string rootDirectory)
+public class OlderPreschoolVolumeReader(string rootDirectory)
 {
-    private readonly LifewayPreschoolVolumeScanner scanner = new(rootDirectory);
+    private readonly VolumeSessionScanner scanner = new(rootDirectory);
 
-    public PreschoolVolume GetPreschoolVolume(int volumeNumber)
+    public Volume<OlderPreschoolSession> GetVolume(int volumeNumber)
     {
-        var preschoolVolumeStructure = scanner.GetPreschoolVolumeStructure(volumeNumber);
-        
-        var preschoolSessions = new List<PreschoolSession>();
-        foreach(var preschoolUnitSessions in preschoolVolumeStructure)
+        var volumeStructure = scanner.GetVolumeStructure(volumeNumber);
+        return new Volume<OlderPreschoolSession>
         {
-            var unitNumber = preschoolUnitSessions.Key;
-            var sessionNumbers = preschoolUnitSessions.Value;
-            foreach(var sessionNumber in sessionNumbers)
+            VolumeNumber = volumeStructure.VolumeNumber,
+            Sessions = volumeStructure.Sessions.Select(session => new OlderPreschoolSession
             {
-                preschoolSessions.Add(new(
-                    UnitNumber: unitNumber,
-                    SessionNumber: sessionNumber,
-                    SessionTitle: "Session Title Here",
-                    BibleStoryPictureSourcePath: GetPreschoolBibleStoryPicturePath(volumeNumber, unitNumber, sessionNumber),
-                    BibleStoryVideoSourcePath: GetPreschoolBibleStoryVideoPath(volumeNumber, unitNumber, sessionNumber),
-                    BigPictureAnswerSourcePath: GetPreschoolBigPictureAnswerPath(volumeNumber, unitNumber),
-                    BigPictureQuestionSourcePath: GetPreschoolBigPictureQuestionPath(volumeNumber, unitNumber),
-                    KeyPassageSourcePath: GetPreschoolKeyPassagePath(volumeNumber, unitNumber),
-                    SongSourcePath: GetPreschoolKeyPassageSongPath(volumeNumber, unitNumber)));
-            }
-        }
-        return new PreschoolVolume(volumeNumber, preschoolSessions);
+                UnitNumber = session.UnitNumber,
+                SessionNumber = session.SessionNumber,
+                SessionName = session.SessionName,
+                BibleStoryPictureSourcePath = GetPreschoolBibleStoryPicturePath(volumeNumber, session.UnitNumber, session.SessionNumber),
+                BibleStoryVideoSourcePath = GetPreschoolBibleStoryVideoPath(volumeNumber, session.UnitNumber, session.SessionNumber),
+                BigPictureAnswerSourcePath = GetPreschoolBigPictureAnswerPath(volumeNumber, session.UnitNumber),
+                BigPictureQuestionSourcePath = GetPreschoolBigPictureQuestionPath(volumeNumber, session.UnitNumber),
+                KeyPassageSourcePath = GetPreschoolKeyPassagePath(volumeNumber, session.UnitNumber),
+                SongSourcePath = GetPreschoolKeyPassageSongPath(volumeNumber, session.UnitNumber)
+            })
+        };
     }
 
     private string GetPreschoolBibleStoryVideoPath(int volumeNumber, int unitNumber, int sessionNumber)
@@ -48,7 +43,8 @@ public class LifewayPreschoolVolumeReader(string rootDirectory)
             .ToArray();
 
         var lowestUnitInCurrentVolume = scanner
-            .GetPreschoolVolumeStructure(volumeNumber).Keys
+            .GetVolumeStructure(volumeNumber).Sessions
+            .Select(session => session.UnitNumber)
             .OrderBy(unit => unit)
             .First();
         var unitIndex = unitNumber - lowestUnitInCurrentVolume;

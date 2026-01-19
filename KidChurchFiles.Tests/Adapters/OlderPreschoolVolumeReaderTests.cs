@@ -1,19 +1,19 @@
-using System;
+namespace KidChurchFiles.Tests.Adapters;
 
-namespace KidChurchFiles.Tests;
+using KidChurchFiles.Adapters;
 
-public class LifewayPreschoolVolumeReaderTests
+public class OlderPreschoolVolumeReaderTests
 {
-    private readonly LifewayPreschoolVolumeReader reader = new(
+    private readonly OlderPreschoolVolumeReader reader = new(
         $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/Downloads");
 
     [Theory]
     [InlineData(5)]
     [InlineData(6)]
-    public void GetPreschoolVolume_ShouldFindBibleStoryPicture(int volumeNumber)
+    public void GetVolume_ShouldFindBibleStoryPicture(int volumeNumber)
     {
         // Act
-        var volume = reader.GetPreschoolVolume(volumeNumber);
+        var volume = reader.GetVolume(volumeNumber);
 
         // Assert
         foreach (var session in volume.Sessions)
@@ -25,10 +25,10 @@ public class LifewayPreschoolVolumeReaderTests
     [Theory]
     [InlineData(5)]
     [InlineData(6)]
-    public void GetPreschoolVolume_ShouldFindBibleStoryVideo(int volumeNumber)
+    public void GetVolume_ShouldFindBibleStoryVideo(int volumeNumber)
     {
         // Act
-        var volume = reader.GetPreschoolVolume(volumeNumber);
+        var volume = reader.GetVolume(volumeNumber);
 
         // Assert
         foreach (var session in volume.Sessions)
@@ -40,10 +40,10 @@ public class LifewayPreschoolVolumeReaderTests
     [Theory]
     [InlineData(5)]
     [InlineData(6)]
-    public void GetPreschoolVolume_ShouldFindBigPictureAnswer(int volumeNumber)
+    public void GetVolume_ShouldFindBigPictureAnswer(int volumeNumber)
     {
         // Act
-        var volume = reader.GetPreschoolVolume(volumeNumber);
+        var volume = reader.GetVolume(volumeNumber);
 
         // Assert
         foreach (var session in volume.Sessions)
@@ -55,10 +55,10 @@ public class LifewayPreschoolVolumeReaderTests
     [Theory]
     [InlineData(5)]
     [InlineData(6)]
-    public void GetPreschoolVolume_ShouldFindBigPictureQuestion(int volumeNumber)
+    public void GetVolume_ShouldFindBigPictureQuestion(int volumeNumber)
     {
         // Act
-        var volume = reader.GetPreschoolVolume(volumeNumber);
+        var volume = reader.GetVolume(volumeNumber);
 
         // Assert
         foreach (var session in volume.Sessions)
@@ -70,10 +70,10 @@ public class LifewayPreschoolVolumeReaderTests
     [Theory]
     [InlineData(5)]
     [InlineData(6)]
-    public void GetPreschoolVolume_ShouldFindKeyPassage(int volumeNumber)
+    public void GetVolume_ShouldFindKeyPassage(int volumeNumber)
     {
         // Act
-        var volume = reader.GetPreschoolVolume(volumeNumber);
+        var volume = reader.GetVolume(volumeNumber);
 
         // Assert
         foreach (var session in volume.Sessions)
@@ -85,10 +85,10 @@ public class LifewayPreschoolVolumeReaderTests
     [Theory]
     [InlineData(5)]
     [InlineData(6)]
-    public void GetPreschoolVolume_ShouldFindSong(int volumeNumber)
+    public void GetVolume_ShouldFindSong(int volumeNumber)
     {
         // Act
-        var volume = reader.GetPreschoolVolume(volumeNumber);
+        var volume = reader.GetVolume(volumeNumber);
 
         // Assert
         foreach (var session in volume.Sessions)

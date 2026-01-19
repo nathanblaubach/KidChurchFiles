@@ -1,10 +1,10 @@
 namespace KidChurchFiles;
 
-public record PreschoolVolume(
-    int VolumeNumber,
-    List<PreschoolSession> Sessions
-)
+public class Volume<T> where T : Session
 {
+    public required int VolumeNumber { get; set; }
+    public required IEnumerable<T> Sessions;
+
     public string GetDirectoryName()
     {
         var lowestUnitNumber = Sessions.Min(session => session.UnitNumber);
